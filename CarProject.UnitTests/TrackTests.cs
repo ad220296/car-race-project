@@ -77,4 +77,16 @@ public class TrackTests
 
     Assert.AreEqual(startSection , lastSection.NextSection);
   }
+
+    [TestMethod]
+    public void IsEmptyTrack_ShouldReturnTrue_GivenNoSections()
+    {
+
+        List<Section> emptySections = new List<Section>();
+        Track track = new Track(emptySections);
+
+        bool isEmpty = track.IsEmpty();
+
+        Assert.IsTrue(isEmpty);
+    }
 }

@@ -69,6 +69,11 @@ public class Track
     public bool LoopedTrack => _loopedTrack;
     #endregion
 
+    public bool IsEmpty()
+    {
+        return _trackList == null || _trackList.Count == 0;
+    }
+
 
     public void Debug_PrintSection(int index)
     {
