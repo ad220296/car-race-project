@@ -11,10 +11,7 @@ public class Track
     public Track(List<Section>? trackList, bool trackShallLoop = false)
     {
         if (trackList == null || trackList.Count == 0)
-            throw new ArgumentNullException(nameof(trackList));
-
-        _trackList = trackList;             // commit test comment 
-        _loopedTrack = trackShallLoop;
+            throw new ArgumentNullException(nameof(trackList), "Sections cant be empty");
 
         _trackList = trackList;
         _loopedTrack = trackShallLoop;
@@ -24,7 +21,7 @@ public class Track
             _trackList[i].AddAfterMe(_trackList[i + 1]);
         }
 
-        if (LoopedTrack)
+        if (_loopedTrack)
             _trackList.Last().AddAfterMe(_trackList.First());
     }
     #endregion

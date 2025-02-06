@@ -81,12 +81,11 @@ public class TrackTests
     [TestMethod]
     public void IsEmptyTrack_ShouldReturnTrue_GivenNoSections()
     {
-
-        List<Section> emptySections = new List<Section>();
-        Track track = new Track(emptySections);
+        Track track = Track.CreateEmptyTrack();
 
         bool isEmpty = track.IsEmpty();
 
         Assert.IsTrue(isEmpty);
     }
+
 }
