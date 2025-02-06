@@ -5,6 +5,7 @@ public class Track
     #region field
     private readonly List<Section> _trackList;
     private readonly bool _loopedTrack;
+    private bool _isEmptyTrack;
     #endregion
 
     #region constructor
@@ -23,6 +24,11 @@ public class Track
 
         if (_loopedTrack)
             _trackList.Last().AddAfterMe(_trackList.First());
+    }
+    private Track()
+    {
+        _trackList = new List<Section>();
+        _isEmptyTrack = true;  
     }
     #endregion
 
@@ -68,10 +74,12 @@ public class Track
 
     public bool IsEmpty()
     {
-        return _trackList == null || _trackList.Count == 0;
+        return _isEmptyTrack;
     }
-
-
+    public static Track CreateEmptyTrack()
+    {
+        return new Track();
+    }
     public void Debug_PrintSection(int index)
     {
         if (_trackList.Count == 0)
