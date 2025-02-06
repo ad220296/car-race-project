@@ -2,40 +2,45 @@
 
 public class Track
 {
-  #region field
-  private readonly List<Section> _trackList;
-  private readonly bool _loopedTrack;
-  #endregion
+    #region field
+    private readonly List<Section> _trackList;
+    private readonly bool _loopedTrack;
+    #endregion
 
-  #region constructor
-  public Track(List<Section>? trackList , bool trackShallLoop = false)
-  {
-    if (trackList == null || trackList.Count == 0)
-      throw new ArgumentNullException(nameof(trackList));
+    #region constructor
+    public Track(List<Section>? trackList, bool trackShallLoop = false)
+    {
+        if (trackList == null || trackList.Count == 0)
+            throw new ArgumentNullException(nameof(trackList));
 
-    _trackList = trackList;             // commit test comment 
-    _loopedTrack = trackShallLoop;
+        _trackList = trackList;             // commit test comment 
+        _loopedTrack = trackShallLoop;
 
-    _trackList = trackList;
-    _loopedTrack = trackShallLoop;
+        _trackList = trackList;
+        _loopedTrack = trackShallLoop;
+
+        for (int i = 0; i < _trackList.Count - 1; i++)
+        {
+            _trackList[i].AddAfterMe(_trackList[i + 1]);
+        }
 
         if (LoopedTrack)
-      _trackList.Last().AddAfterMe(_trackList.First());
-  }
-  #endregion
+            _trackList.Last().AddAfterMe(_trackList.First());
+    }
+    #endregion
 
-  #region properties
-  public Section? StartSection { get => _trackList.FirstOrDefault(); }
+    #region properties
+    public Section? StartSection { get => _trackList.FirstOrDefault(); }
 
-  public int GetTotalLength()
-  {
+    public int GetTotalLength()
+    {
         int totalLength = 0;
         Section? current = _trackList.First();
+
         while (current != null)
         {
             totalLength += current.Length;
             current = current.NextSection;
-
 
             if (_loopedTrack && current == _trackList.First())
                 break;
@@ -43,37 +48,37 @@ public class Track
         return totalLength;
     }
 
-  public int GetMaxSpeed
-  {
-    get
+    public int GetMaxSpeed
     {
-      int result = 0;
+        get
+        {
+            int result = 0;
 
-      foreach (var section in _trackList)
-        if (section.MaxSpeed > result)
-          result = section.MaxSpeed;
+            foreach (var section in _trackList)
+                if (section.MaxSpeed > result)
+                    result = section.MaxSpeed;
 
-      return result;
+            return result;
+        }
     }
-  }
 
-  public bool LoopedTrack => _loopedTrack;
-  #endregion
+    public bool LoopedTrack => _loopedTrack;
+    #endregion
 
 
-  public void Debug_PrintSection(int index)
-  {
-    if (_trackList.Count == 0)
-      Console.WriteLine("Your Track is empty");
-    else if (index == -1)
+    public void Debug_PrintSection(int index)
     {
-      int i = 0;
-      foreach (var section in _trackList)
-        Debug_PrintSection(i++);
+        if (_trackList.Count == 0)
+            Console.WriteLine("Your Track is empty");
+        else if (index == -1)
+        {
+            int i = 0;
+            foreach (var section in _trackList)
+                Debug_PrintSection(i++);
+        }
+        else if (index >= _trackList.Count || index < 0)
+            Console.WriteLine("Index out of Range");
+        else
+            Console.WriteLine(_trackList[index].ToString());
     }
-    else if (index >= _trackList.Count || index < 0)
-      Console.WriteLine("Index out of Range");
-    else
-      Console.WriteLine(_trackList[ index ].ToString());
-  }
 }
