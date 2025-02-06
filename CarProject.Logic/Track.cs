@@ -48,18 +48,22 @@ public class Track
         return totalLength;
     }
 
-    public int GetMaxSpeed
+    public int GetMaxSpeed()
     {
-        get
+        int maxSpeed = 0;
+        Section? current = _trackList.First();
+
+        while (current != null)
         {
-            int result = 0;
+            if (current.MaxSpeed > maxSpeed)
+                maxSpeed = current.MaxSpeed;
 
-            foreach (var section in _trackList)
-                if (section.MaxSpeed > result)
-                    result = section.MaxSpeed;
+            current = current.NextSection;
 
-            return result;
+            if (_loopedTrack && current == _trackList.First())
+                break;
         }
+        return maxSpeed;
     }
 
     public bool LoopedTrack => _loopedTrack;
