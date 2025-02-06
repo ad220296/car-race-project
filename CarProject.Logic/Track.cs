@@ -27,18 +27,21 @@ public class Track
   #region properties
   public Section? StartSection { get => _trackList.FirstOrDefault(); }
 
-  public int GetTotalLenght
+  public int GetTotalLength()
   {
-    get
-    {
-      int result = 0;
+        int totalLength = 0;
+        Section? current = _trackList.First();
+        while (current != null)
+        {
+            totalLength += current.Length;
+            current = current.NextSection;
 
-      foreach (var section in _trackList)
-        result += section.Length;
 
-      return result;
+            if (_loopedTrack && current == _trackList.First())
+                break;
+        }
+        return totalLength;
     }
-  }
 
   public int GetMaxSpeed
   {

@@ -31,7 +31,7 @@ public class TrackTests
 
     Track track = new(trackList);
 
-    Assert.AreEqual(1000 , track.GetTotalLenght);
+    Assert.AreEqual(1000 , track.GetTotalLength());
   }
 
   [TestMethod]
