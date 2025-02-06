@@ -50,7 +50,6 @@ public class TrackBuilderTest
     [TestMethod]
     public void TrackBuilder_ShouldCreateTrackAndLinkSections_GivenValidSectionInfo()
     {
-
         var sectionInfo = new List<(int, int)>
     {
         (50, 300), 
@@ -60,12 +59,16 @@ public class TrackBuilderTest
 
         TrackBuilder builder = new TrackBuilder(sectionInfo.ToArray());
 
-        Track track = builder.RaceTrack;
+        Assert.IsNotNull(builder.RaceTrack, "RaceTrack should not be null");
+        Track track = builder.RaceTrack!;
+        Assert.IsNotNull(track.StartSection, "StartSection should not be null");
+        Console.WriteLine($"StartSection exists: {track.StartSection != null}");
+        Assert.IsNotNull(track.StartSection!.NextSection, "NextSection should not be null");
+        Console.WriteLine($"StartSection.NextSection exists: {track.StartSection?.NextSection != null}");
 
-        Assert.IsNotNull(track); 
-        Assert.AreEqual(1000, track.GetTotalLength()); 
+        Assert.AreEqual(1000, track.GetTotalLength); 
 
-        Assert.AreEqual(track.StartSection.NextSection.Length, 500); 
+        Assert.AreEqual(track.StartSection!.NextSection.Length, 500); 
     }
 
 }
