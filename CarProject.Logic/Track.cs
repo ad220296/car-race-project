@@ -16,7 +16,10 @@ public class Track
     _trackList = trackList;
     _loopedTrack = trackShallLoop;
 
-    if (LoopedTrack)
+    _trackList = trackList;
+    _loopedTrack = trackShallLoop;
+
+        if (LoopedTrack)
       _trackList.Last().AddAfterMe(_trackList.First());
   }
   #endregion
