@@ -47,4 +47,24 @@ public class TrackBuilderTest
 
     Assert.AreEqual(true , builder.RaceTrack!.LoopedTrack);
   }
+
+    [TestMethod]
+    public void TrackBuilder_ShouldCreateTrackWithSections_GivenValidSectionInfo()
+    {
+        var sectionInfo = new List<(int, int)>
+    {
+        (50, 300), 
+        (70, 500), 
+        (60, 200)  
+    };
+
+        TrackBuilder builder = new TrackBuilder(sectionInfo);
+
+        Track track = builder.RaceTrack;
+
+        Assert.AreEqual(3, track.GetTotalLength()); 
+
+        Assert.AreEqual(track.StartSection.NextSection.Length, 500);  
+    }
+
 }
