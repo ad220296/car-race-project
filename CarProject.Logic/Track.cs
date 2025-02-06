@@ -13,7 +13,7 @@ public class Track
     if (trackList == null || trackList.Count == 0)
       throw new ArgumentNullException(nameof(trackList));
 
-    _trackList = trackList;
+    _trackList = trackList;             // commit test comment 
     _loopedTrack = trackShallLoop;
 
     _trackList = trackList;
